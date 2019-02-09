@@ -58,6 +58,7 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
+    "@types/graphql": "^14.0.5",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.15",
     "@types/react": "^16.7.17",

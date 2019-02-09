@@ -8,7 +8,7 @@ import * as React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 
-import { Home } from './Home';
+import { Home } from './home';
 
 import './App.scss';
 
@@ -18,7 +18,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <AppBar color={'primary'}>
+          <AppBar color={'primary'} position={'relative'}>
 
             <Toolbar>
               <IconButton color="inherit" aria-label="Menu">
