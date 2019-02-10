@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { getUsers, IUser } from '../user';
+import { getUserByName, getUsers, IUser } from '../user';
 import './Home.scss';
 
 interface IHomeState {
-  users: IUser[];
+  users: string[];
+  userDetail?: IUser;
 }
 
 export class Home extends React.Component<{}, IHomeState> {
@@ -18,13 +19,37 @@ export class Home extends React.Component<{}, IHomeState> {
       return <div>Loading users...</div>
     }
     return <div>
-      {this.state.users.map(user => <p key={user.username}>{user.username}</p>)}
+      {this.state.users.map(user => <p
+        className="user__item"
+        key={user}
+        onClick={this.loadUserDetail(user)}
+      >
+        {user}
+      </p>)}
+      {this.renderUserDetail()}
     </div>;
   }
 
   public componentWillMount = async (): Promise<void> => {
     const users = await getUsers();
     this.setState({ users });
+  }
+
+  private renderUserDetail() {
+    if (!this.state.userDetail) {
+      return;
+    }
+    const { username, password, dateCreated } = this.state.userDetail;
+    return <ul>
+      <li>username: {username}</li>
+      <li>password: {password}</li>
+      <li>date created: {dateCreated}</li>
+    </ul>;
+  }
+
+  private loadUserDetail = (username: string) => async ():Promise<void> => {
+    const userDetail = await getUserByName(username);
+    this.setState({ userDetail });
   }
 
 }
